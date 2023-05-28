@@ -771,3 +771,176 @@ console.log("End");
 // End
 // Promise callback
 // Timeout callback
+
+//HOF
+
+const firstOrderFunc = () => console.log("Hello, I am a First order function");
+const higherOrder = (ReturnFirstOrderFunc) => ReturnFirstOrderFunc();
+higherOrder(firstOrderFunc);
+
+//Pure Function
+
+//Impure
+let numberArray = [];
+const impureAddNumber = (number) => numberArray.push(number);
+//Pure
+const pureAddNumber = (number) => (argNumberArray) =>
+  argNumberArray.concat([number]);
+
+//Display the results
+console.log(impureAddNumber(6)); // returns 1
+console.log(numberArray); // returns [6]
+console.log(pureAddNumber(7)(numberArray)); // returns [6, 7]
+console.log(numberArray); // returns [6]
+
+//Unary Function
+
+const unaryFunction = (a) => console.log(a + 10); // Add 10 to the given argument and display the value
+
+//Hoisting
+
+console.log(message); //output : undefined
+var message = "The variable Has been hoisted";
+
+//First Class Function
+
+const handler = () => console.log("This is a click handler function");
+document.addEventListener("click", handler);
+
+//First Order Function
+
+const firstOrder = () => console.log("I am a first order function!");
+
+//Memoization
+
+const memoizAddition = () => {
+  let cache = {};
+  return (value) => {
+    if (value in cache) {
+      console.log("Fetching from cache");
+      return cache[value]; // Here, cache.value cannot be used as property name starts with the number which is not a valid JavaScript  identifier. Hence, can only be accessed using the square bracket notation.
+    } else {
+      console.log("Calculating result");
+      let result = value + 20;
+      cache[value] = result;
+      return result;
+    }
+  };
+};
+// returned function from memoizAddition
+const addition = memoizAddition();
+console.log(addition(20)); //output: 40 calculated
+console.log(addition(20)); //output: 40 cached
+
+//Promise Chaining
+
+new Promise(function (resolve, reject) {
+  setTimeout(() => resolve(1), 1000);
+})
+  .then(function (result) {
+    console.log(result); // 1
+    return result * 2;
+  })
+  .then(function (result) {
+    console.log(result); // 2
+    return result * 3;
+  })
+  .then(function (result) {
+    console.log(result); // 6
+    return result * 4;
+  });
+
+//Promise.all
+
+Promise.all([Promise1, Promise2, Promise3])
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => console.log(`Error in promises ${error}`));
+
+//Promise.race
+
+var promise1 = new Promise(function (resolve, reject) {
+  setTimeout(resolve, 500, "one");
+});
+var promise2 = new Promise(function (resolve, reject) {
+  setTimeout(resolve, 100, "two");
+});
+
+Promise.race([promise1, promise2]).then(function (value) {
+  console.log(value); // "two" // Both promises will resolve, but promise2 is faster
+});
+
+//Rest Parameter
+
+function total(...args) {
+  let sum = 0;
+  for (let i of args) {
+    sum += i;
+  }
+  return sum;
+}
+console.log(total(1, 2)); //3
+console.log(total(1, 2, 3)); //6
+console.log(total(1, 2, 3, 4)); //13
+console.log(total(1, 2, 3, 4, 5)); //15
+
+//Spread Operator
+
+function calculateSum(x, y, z) {
+  return x + y + z;
+}
+
+const numbers = [1, 2, 3];
+
+console.log(calculateSum(...numbers)); // 6
+
+//WeakSet
+
+var ws = new WeakSet();
+var user = {};
+ws.add(user);
+ws.has(user); // true
+ws.delete(user); // removes user from the set
+ws.has(user); // false, user has been removed
+
+//WeakMap
+
+var ws = new WeakMap();
+var user = {};
+ws.set(user);
+ws.has(user); // true
+ws.delete(user); // removes user from the map
+ws.has(user); // false, user has been removed
+
+//Debouncing
+
+function debounce(func, timeout = 500) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+function fetchResults() {
+  console.log("Fetching input suggestions");
+}
+const processChange = debounce(() => fetchResults());
+
+//Throttling
+
+const throttle = (func, limit) => {
+  let inThrottle;
+  return (...args) => {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+};
+window.addEventListener("scroll", () => {
+  throttle(handleScrollAnimation, 100);
+});
