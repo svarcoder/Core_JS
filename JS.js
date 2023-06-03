@@ -723,7 +723,7 @@ asyncOperation()
     console.log("Error: " + error);
   });
 
-//async & await
+//Async & Await
 // Async/await example
 const asyncOperationNew = () => {
   return new Promise((resolve, reject) => {
@@ -944,3 +944,73 @@ const throttle = (func, limit) => {
 window.addEventListener("scroll", () => {
   throttle(handleScrollAnimation, 100);
 });
+
+//Call
+
+var employee1 = { firstName: "John", lastName: "Rodson" };
+var employee2 = { firstName: "Jimmy", lastName: "Baily" };
+
+function invite(greeting1, greeting2) {
+  console.log(
+    greeting1 + " " + this.firstName + " " + this.lastName + ", " + greeting2
+  );
+}
+
+invite.call(employee1, "Hello", "How are you?"); // Hello John Rodson, How are you?
+invite.call(employee2, "Hello", "How are you?"); // Hello Jimmy Baily, How are you?
+
+//Apply
+
+var employee1 = { firstName: "John", lastName: "Rodson" };
+var employee2 = { firstName: "Jimmy", lastName: "Baily" };
+
+function invite(greeting1, greeting2) {
+  console.log(
+    greeting1 + " " + this.firstName + " " + this.lastName + ", " + greeting2
+  );
+}
+
+invite.apply(employee1, ["Hello", "How are you?"]); // Hello John Rodson, How are you?
+invite.apply(employee2, ["Hello", "How are you?"]); // Hello Jimmy Baily, How are you?
+
+//Bind
+
+var employee1 = { firstName: "John", lastName: "Rodson" };
+var employee2 = { firstName: "Jimmy", lastName: "Baily" };
+
+function invite(greeting1, greeting2) {
+  console.log(
+    greeting1 + " " + this.firstName + " " + this.lastName + ", " + greeting2
+  );
+}
+
+var inviteEmployee1 = invite.bind(employee1);
+var inviteEmployee2 = invite.bind(employee2);
+inviteEmployee1("Hello", "How are you?"); // Hello John Rodson, How are you?
+inviteEmployee2("Hello", "How are you?"); // Hello Jimmy Baily, How are you?
+
+//localStorage
+// Save data to localStorage
+localStorage.setItem("key", "value");
+
+// Get saved data from localStorage
+let data = localStorage.getItem("key");
+
+// Remove saved data from localStorage
+localStorage.removeItem("key");
+
+// Remove all saved data from localStorage
+localStorage.clear();
+
+//sessionStorage
+// Save data to sessionStorage
+sessionStorage.setItem("key", "value");
+
+// Get saved data from sessionStorage
+let dataN = sessionStorage.getItem("key");
+
+// Remove saved data from sessionStorage
+sessionStorage.removeItem("key");
+
+// Remove all saved data from sessionStorage
+sessionStorage.clear();
